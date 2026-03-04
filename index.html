@@ -1,298 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prashamana: Nurturing the Caregiver</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashamana: Nurturing the Caregiver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ================= GLOBAL ================= */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f8ff;
+            overflow: hidden;
+        }
 
-<style>
-/* ================= GLOBAL & RESPONSIVE ================= */
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Comic Neue', cursive;
-    background-color: #f0f8ff;
-    display: flex;
-    flex-direction: column;
-}
+        /* Persistent Header */
+        .app-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            border-bottom: 4px solid #2d3436;
+            z-index: 1000;
+        }
 
-/* Persistent Header */
-.app-header {
-    width: 100%;
-    text-align: center;
-    background: #ffffff;
-    padding: 15px 0;
-    border-bottom: 5px solid #2d3436;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
+        .app-header h1 {
+            font-family: 'Bangers';
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            color: #2d3436;
+            margin: 0;
+            text-transform: uppercase;
+        }
 
-.app-header h1 {
-    font-family: 'Bangers';
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    color: #2d3436;
-    margin: 0;
-    letter-spacing: 1px;
-}
+        .page {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            padding-top: 60px;
+            box-sizing: border-box;
+        }
 
-.page {
-    display: none;
-    flex: 1;
-    width: 100%;
-    position: relative;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding: 20px;
-}
+        .active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* ================= PAGE 1 (Landing) ================= */
+        #page1 { background: #62c6e2; }
 
-/* ================= PAGE 1 (Landing) ================= */
-#page1 { background: #62c6e2; }
+        .p1-layout {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1100px;
+            gap: 20px; /* Reduced gap to bring nurse closer to domains */
+        }
 
-.p1-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-    max-width: 1200px;
-}
+        .nurse-frame {
+            flex: 1;
+            height: 70vh;
+            background: url('1.jpg') no-repeat center bottom;
+            background-size: contain;
+        }
 
-.p1-nurse-img {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    height: 450px;
-    background: url('1.jpg') no-repeat center;
-    background-size: contain;
-    border: 8px solid white;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
+        .domain-menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
 
-.p1-menu {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    min-width: 300px;
-    align-items: center;
-}
+        /* ================= PAGE 2 (Problem Selection) ================= */
+        #page2 {
+            background-color: #e3f2fd;
+        }
 
-/* ================= PAGE 2 (Problem Selection) ================= */
-#page2 {
-    background: url('2.jpg') no-repeat center;
-    background-size: cover;
-}
+        .medical-border-frame {
+            width: 95%;
+            height: 85vh;
+            background: url('2.jpg') no-repeat center;
+            background-size: 100% 100%; /* Stretches to fit edges as a border */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid #2d3436;
+            border-radius: 20px;
+            position: relative;
+        }
 
-.problem-box {
-    width: 90%;
-    max-width: 500px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border: 5px solid #62c6e2;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-}
+        .problem-content {
+            width: 80%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 20px;
+            border: 3px solid #62c6e2;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-/* ================= PAGE 3 (Solutions) ================= */
-#page3 {
-    background: url('3.jpg') no-repeat center;
-    background-size: cover;
-}
+        /* ================= PAGE 3 (Solutions) ================= */
+        #page3 {
+            background: #d48e8e;
+            background-image: url('3.jpg'); /* Pink background with Nurse */
+            background-size: cover;
+            background-position: center;
+        }
 
-.quote-container {
-    width: 95%;
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 5px solid #d48e8e;
-    border-radius: 30px;
-    padding: 40px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
+        .solution-overlay {
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 142, 142, 0.4); /* Slight tint to blend */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Keeps cards in the white bubble area */
+            padding-right: 5%;
+        }
 
-/* ================= COMPONENTS ================= */
-.domain-btn {
-    width: 100%;
-    max-width: 280px;
-    padding: 18px;
-    background: white;
-    border: 4px solid #2d3436;
-    border-radius: 15px;
-    font-family: 'Bangers';
-    font-size: 1.4rem;
-    cursor: pointer;
-    box-shadow: 6px 6px 0px #2d3436;
-    transition: all 0.2s ease;
-}
+        .quote-bubble-area {
+            width: 60%;
+            height: 60vh;
+            background: rgba(255, 255, 255, 0.85); /* Matches the bubble in image 3 */
+            border-radius: 30px;
+            border: 4px solid #2d3436;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 30px;
+            overflow-y: auto;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
 
-.domain-btn:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px #2d3436; background: #ffeaa7; }
+        /* ================= REUSABLE COMPONENTS ================= */
+        .btn-main {
+            width: 260px;
+            padding: 15px;
+            background: white;
+            border: 4px solid #2d3436;
+            border-radius: 15px;
+            font-family: 'Bangers';
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px #2d3436;
+            transition: 0.2s;
+        }
 
-.card { width: 240px; height: 180px; perspective: 1000px; }
-.card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
-.card.flipped .card-inner { transform: rotateY(180deg); }
+        .btn-main:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px #2d3436; background: #ffeaa7; }
 
-.card-front, .card-back {
-    position: absolute;
-    width: 100%; height: 100%;
-    backface-visibility: hidden;
-    border: 4px solid #2d3436;
-    border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-}
+        .nav-btn {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            background: #ff3b3b;
+            color: white;
+            border: 2px solid black;
+            padding: 8px 15px;
+            font-family: 'Bangers';
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.card-front { 
-    background: #ff7675; color: white; font-family: 'Bangers'; 
-    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-    text-shadow: 2px 2px #2d3436;
-}
+        /* Flip Cards */
+        .card { width: 220px; height: 160px; perspective: 1000px; }
+        .card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border: 3px solid #2d3436; border-radius: 15px;
+            padding: 15px; box-sizing: border-box; display: flex; flex-direction: column;
+        }
+        .card-front { background: #ff7675; color: white; font-family: 'Bangers'; justify-content: center; align-items: center; font-size: 1.4rem; text-align: center; }
+        .card-back { background: #55efc4; transform: rotateY(180deg); text-align: left; }
 
-.card-back { 
-    background: #55efc4; transform: rotateY(180deg); 
-    display: flex; flex-direction: column; text-align: left; font-size: 1rem;
-}
+        .sol-list { margin: 0; padding: 0 0 0 15px; font-weight: bold; font-size: 0.9rem; }
 
-.sol-list { padding-left: 20px; margin-top: 10px; }
-.sol-list li { margin-bottom: 8px; font-weight: bold; }
-
-.nav-btn {
-    padding: 10px 20px;
-    font-family: 'Bangers';
-    background: #ff3b3b;
-    color: white;
-    border: 3px solid #2d3436;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    align-self: flex-start;
-}
-
-/* Responsive adjustments for phones */
-@media (max-width: 768px) {
-    .p1-container { flex-direction: column; }
-    .p1-nurse-img { height: 300px; width: 100%; }
-    .quote-container { flex-direction: column; align-items: center; }
-}
-</style>
+        /* Responsive */
+        @media (max-width: 768px) {
+            .p1-layout { flex-direction: column; }
+            .nurse-frame { height: 40vh; width: 100%; }
+            .quote-bubble-area { width: 90%; height: 70vh; padding-right: 0; align-self: center; margin: auto; }
+            .solution-overlay { justify-content: center; padding-right: 0; }
+        }
+    </style>
 </head>
 <body>
 
 <header class="app-header">
-    <h1>PRASHAMANA: NURTURING THE CAREGIVER</h1>
+    <h1>Prashamana: Nurturing the Caregiver</h1>
 </header>
 
 <div id="page1" class="page active">
-    <div class="p1-container">
-        <div class="p1-nurse-img"></div>
-        <div class="p1-menu">
-            <h2 style="font-family:'Bangers'; color: white; text-shadow: 3px 3px #2d3436; font-size: 2rem;">CHOOSE A DOMAIN</h2>
-            <button class="domain-btn" onclick="selectDomain('Academic')">📚 Academic</button>
-            <button class="domain-btn" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
-            <button class="domain-btn" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
-            <button class="domain-btn" onclick="selectDomain('Affective')">💛 Affective</button>
+    <div class="p1-layout">
+        <div class="nurse-frame"></div>
+        <div class="domain-menu">
+            <h2 style="font-family:'Bangers'; color: white; text-shadow: 2px 2px black; font-size: 2.2rem;">CHOOSE DOMAIN</h2>
+            <button class="btn-main" onclick="selectDomain('Academic')">📚 Academic</button>
+            <button class="btn-main" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
+            <button class="btn-main" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
+            <button class="btn-main" onclick="selectDomain('Affective')">💛 Affective</button>
         </div>
     </div>
 </div>
 
 <div id="page2" class="page">
     <button class="nav-btn" onclick="goHome()">🏠 HOME</button>
-    <div class="problem-box">
-        <h2 id="domainTitle" style="font-family:'Bangers'; color: #d63031; text-align:center;"></h2>
-        <div id="problemList"></div>
-        <button class="domain-btn" style="margin-top: 25px; background:#2ecc71; width:100%; max-width:none;" onclick="showCards()">VIEW SOLUTIONS</button>
+    <div class="medical-border-frame">
+        <div class="problem-content">
+            <h2 id="domainTitle" style="font-family:'Bangers'; color: #d63031; text-align: center; margin-top: 0;"></h2>
+            <div id="problemList"></div>
+            <button class="btn-main" style="width: 100%; background: #2ecc71; margin-top: 20px; box-shadow: 4px 4px 0px black;" onclick="showCards()">VIEW SOLUTIONS</button>
+        </div>
     </div>
 </div>
 
 <div id="page3" class="page">
     <button class="nav-btn" onclick="goBackProblems()">⬅ BACK</button>
-    <div class="quote-container" id="cards"></div>
+    <div class="solution-overlay">
+        <div class="quote-bubble-area" id="cards"></div>
+    </div>
 </div>
 
 <script>
-const data = {
-    Academic: {
-        "Exam Anxiety": ["Practice focused deep breathing.", "Visualize your success daily."],
-        "Sleep Disturbance": ["Stop screen use 30m before bed.", "Stick to a rigid sleep schedule."],
-        "Fear of Failure": ["Set small, achievable targets.", "Celebrate every small win."]
-    },
-    Psychomotor: {
-        "Restlessness": ["Engage in 5-min meditation.", "Try the 4-7-8 breathing technique."],
-        "Fatigue": ["Take a timed 20-min power nap.", "Do light neck and shoulder stretches."]
-    },
-    Cognitive: {
-        "Concentration": ["Declutter your immediate workspace.", "Use a 'Do Not Disturb' mode."],
-        "Self-Doubt": ["Write down 3 daily strengths.", "Look back at past milestones."]
-    },
-    Affective: {
-        "Irritability": ["Take a 5-minute 'mental reset'.", "Listen to calming music."],
-        "Emotional Exhaustion": ["Talk to a trusted friend.", "Go for a short walk in nature."]
+    const data = {
+        Academic: {
+            "Exam Anxiety": ["Practice focused deep breathing.", "Visualize a positive exam outcome."],
+            "Sleep Disturbance": ["Stop screen use 30m before bed.", "Maintain a strict sleep schedule."],
+            "Fear of Failure": ["Set small, reachable milestones.", "Celebrate minor achievements."]
+        },
+        Psychomotor: {
+            "Restlessness": ["Engage in 5 mins of meditation.", "Try the 4-7-8 breathing method."],
+            "Fatigue": ["Take a timed 20-min power nap.", "Perform gentle neck stretches."]
+        },
+        Cognitive: {
+            "Concentration": ["Declutter your immediate desk.", "Turn off non-essential alerts."],
+            "Self-Doubt": ["Write down one daily strength.", "Look back at past certificates."]
+        },
+        Affective: {
+            "Irritability": ["Step away for a 5-min break.", "Listen to a calming melody."],
+            "Emotional Exhaustion": ["Call a supportive friend.", "Take a walk in a green space."]
+        }
+    };
+
+    let currentDomain = "";
+
+    function selectDomain(domain) {
+        currentDomain = domain;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById("page2").classList.add("active");
+        document.getElementById("domainTitle").innerText = domain + " Challenges";
+        
+        let list = "";
+        for (let prob in data[domain]) {
+            list += `<label style="display:flex; align-items:center; font-size:1.1rem; margin-bottom:12px; cursor:pointer; background: #f9f9f9; padding: 8px; border-radius: 8px; border: 1px solid #ddd;">
+                     <input type="checkbox" value="${prob}" style="width:18px; height:18px; margin-right:12px;"> ${prob}</label>`;
+        }
+        document.getElementById("problemList").innerHTML = list;
     }
-};
 
-let currentDomain = "";
+    function showCards() {
+        const selected = document.querySelectorAll('#problemList input:checked');
+        if (selected.length === 0) return alert("Select at least one challenge!");
 
-function selectDomain(domain) {
-    currentDomain = domain;
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById("page2").classList.add("active");
-    document.getElementById("domainTitle").innerText = domain + " Challenges";
-    
-    let list = "";
-    for (let prob in data[domain]) {
-        list += `<label style="display:flex; align-items:center; font-size:1.2rem; margin-bottom:15px; cursor:pointer; background:white; padding:10px; border-radius:10px; border:2px solid #eee;">
-                 <input type="checkbox" value="${prob}" style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
-    }
-    document.getElementById("problemList").innerHTML = list;
-}
+        const container = document.getElementById("cards");
+        container.innerHTML = "";
 
-function showCards() {
-    const selected = document.querySelectorAll('#problemList input:checked');
-    if (selected.length === 0) return alert("Please select a challenge!");
+        selected.forEach(item => {
+            let p = item.value;
+            let sols = data[currentDomain][p];
+            let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
-    const container = document.getElementById("cards");
-    container.innerHTML = "";
-
-    selected.forEach(item => {
-        let p = item.value;
-        let sols = data[currentDomain][p];
-        let solHtml = sols.map(s => `<li>${s}</li>`).join("");
-
-        container.innerHTML += `
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">${p}</div>
-                    <div class="card-back">
-                        <strong style="color:#d63031; border-bottom:2px solid #eee; padding-bottom:5px;">SOLUTIONS:</strong>
-                        <ol class="sol-list">${solHtml}</ol>
+            container.innerHTML += `
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">${p}</div>
+                        <div class="card-back">
+                            <strong style="color:#d63031; border-bottom:1px solid #ddd; padding-bottom:5px; margin-bottom:8px;">SOLUTIONS:</strong>
+                            <ul class="sol-list">${solHtml}</ul>
+                        </div>
                     </div>
-                </div>
-            </div>`;
-    });
+                </div>`;
+        });
 
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById("page3").classList.add("active");
-}
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById("page3").classList.add("active");
+    }
 
-function goHome() {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById("page1").classList.add("active");
-}
+    function goHome() {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById("page1").classList.add("active");
+    }
 
-function goBackProblems() {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById("page2").classList.add("active");
-}
+    function goBackProblems() {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById("page2").classList.add("active");
+    }
 </script>
 </body>
 </html>

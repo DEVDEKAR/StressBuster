@@ -1,1 +1,297 @@
-<!DOCTYPE html> <html> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>STRESS BUSTER</title> <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet"> <style> body{ margin:0; font-family:'Comic Neue',cursive; background:radial-gradient(circle,#ffeaa7 10%,#74b9ff 100%); text-align:center; } /* HERO */ .hero{ background:#ff3b3b; color:yellow; padding:25px; font-family:'Bangers'; font-size:32px; letter-spacing:2px; text-shadow:3px 3px black; border-bottom:6px solid black; } /* PAGE CONTROL */ .page{display:none;padding:20px;} .active{display:block;} /* DOMAIN CARDS */ .domain-container{ display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:30px; } .domain-card{ background:#fff; border:5px solid black; border-radius:15px; padding:30px; width:220px; cursor:pointer; font-family:'Bangers'; font-size:22px; box-shadow:8px 8px 0px black; transition:0.2s; } .domain-card:hover{ transform:scale(1.05); background:#ffeaa7; } /* CHECKBOX PANEL */ .problem-panel{ background:white; border:5px solid black; border-radius:15px; padding:25px; max-width:650px; margin:auto; box-shadow:8px 8px 0px black; text-align:left; } .problem-panel label{ display:block; margin:10px 0; font-size:18px; } /* BUTTON */ button{ margin-top:15px; padding:12px 20px; font-family:'Bangers'; font-size:18px; background:#ff4757; color:white; border:4px solid black; border-radius:10px; cursor:pointer; } button:hover{ background:#e84118; } /* FLIP CARDS */ .card-container{ display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:20px; } .card{ width:90%; max-width:280px; height:200px; perspective:1000px; } .card-inner{ width:100%; height:100%; transition:transform 0.6s; transform-style:preserve-3d; position:relative; cursor:pointer; } .card.flipped .card-inner{ transform:rotateY(180deg); } .card-front,.card-back{ position:absolute; width:100%; height:100%; border-radius:12px; border:4px solid black; backface-visibility:hidden; display:flex; align-items:center; justify-content:center; padding:15px; font-weight:bold; box-shadow:6px 6px 0px black; } .card-front{ background:#ff7675; color:white; } .card-back{ background:#55efc4; transform:rotateY(180deg); } /* BACK BUTTON FIX */ .top-bar{ position:sticky; top:0; background:#ffeaa7; padding:10px; z-index:1000; } @media(min-width:768px){ .card{width:250px;} } </style> </head> <body> <div class="hero">STRESS BUSTER 💉📚</div> <!-- PAGE 1 DOMAIN SELECT --> <div id="page1" class="page active"> <h2>Choose Your Domain</h2> <div class="domain-container"> <div class="domain-card" onclick="selectDomain('Academic')">Academic Domain</div> <div class="domain-card" onclick="selectDomain('Psychomotor')">Psychomotor Domain</div> <div class="domain-card" onclick="selectDomain('Cognitive')">Cognitive Domain</div> <div class="domain-card" onclick="selectDomain('Affective')">Affective Domain</div> </div> </div> <!-- PAGE 2 PROBLEM SELECT --> <div id="page2" class="page"> <div class="top-bar"> <button onclick="goHome()">⬅ Back to Domains</button> </div> <h2 id="domainTitle"></h2> <div class="problem-panel" id="problemList"></div> <button onclick="showCards()">Show Solutions</button> </div> <!-- PAGE 3 CARDS --> <div id="page3" class="page"> <div class="top-bar"> <button onclick="goBackProblems()">⬅ Back to Problems</button> </div> <h2>Flip for Solutions 💡</h2> <div class="card-container" id="cards"></div> </div> <script> const data={ Academic:{ "Exam Anxiety":"Practice deep breathing for 5 minutes before studying or entering exam hall.", "Sleep Disturbance":"Stop using phone 30 minutes before bedtime.", "Fear of Failure":"Break syllabus into small manageable goals.", "Result-Related Stress":"Focus on next improvement step instead of marks.", "Performance Pressure":"Take 5–10 minute break after 1 hour study.", "Lack of Motivation":"Use 25-minute Pomodoro study method.", "Overwhelmed by Syllabus":"Make priority list of important topics.", "Appetite Changes":"Eat small regular meals." }, Psychomotor:{ "Restlessness":"Practice meditation or grounding exercise.", "Pacing":"Sit down and do short guided relaxation.", "Fatigue":"Take 20–30 minute power nap.", "Social Withdrawal":"Talk to one trusted person daily.", "Loss of Appetite / Overeating":"Follow regular balanced meal timings." }, Cognitive:{ "Poor Concentration":"Study in quiet place and remove distractions.", "Forgetfulness":"Revise within 24 hours.", "Negative Thinking":"Practice positive self-talk.", "Self-Doubt":"Remind yourself of one past success.", "Decision-Making Difficulty":"Set 5–10 minute decision limit." }, Affective:{ "Irritability":"Take 5-minute pause from task.", "Mood Swings":"Maintain regular routine.", "Sadness":"Talk to trusted person or write feelings.", "Emotional Exhaustion":"Take 15–20 minute relaxation break." } }; let currentDomain=""; function selectDomain(domain){ currentDomain=domain; document.getElementById("page1").classList.remove("active"); document.getElementById("page2").classList.add("active"); document.getElementById("domainTitle").innerText=domain+" Domain Problems"; let list=""; for(let problem in data[domain]){ list+=<label><input type="checkbox" value="${problem}"> ${problem}</label>; } document.getElementById("problemList").innerHTML=list; } function showCards(){ const selected=document.querySelectorAll('#problemList input:checked'); const container=document.getElementById("cards"); container.innerHTML=""; selected.forEach(item=>{ let problem=item.value; container.innerHTML+= <div class="card" onclick="this.classList.toggle('flipped')"> <div class="card-inner"> <div class="card-front">${problem}</div> <div class="card-back">${data[currentDomain][problem]}</div> </div> </div>; }); document.getElementById("page2").classList.remove("active"); document.getElementById("page3").classList.add("active"); } function goHome(){ document.getElementById("page2").classList.remove("active"); document.getElementById("page1").classList.add("active"); } function goBackProblems(){ document.getElementById("page3").classList.remove("active"); document.getElementById("page2").classList.add("active"); } </script> </body> </html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prashamana: Nurturing the Caregiver.</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Comic Neue',cursive;
+background:
+radial-gradient(circle at 20% 30%, #ffffff33 2%, transparent 3%),
+radial-gradient(circle at 80% 70%, #ffffff33 2%, transparent 3%),
+linear-gradient(135deg,#74b9ff,#a29bfe,#81ecec);
+background-size:40px 40px,40px 40px,cover;
+text-align:center;
+}
+
+/* HERO */
+.hero{
+background:#ff3b3b;
+color:yellow;
+padding:25px;
+font-family:'Bangers';
+font-size:30px;
+letter-spacing:2px;
+text-shadow:3px 3px black;
+border-bottom:6px solid black;
+}
+
+/* PAGE CONTROL */
+.page{display:none;padding:20px;}
+.active{display:block;}
+
+/* DOMAIN CARDS */
+.domain-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+margin-top:30px;
+}
+
+.domain-card{
+background:#fff;
+border:5px solid black;
+border-radius:15px;
+padding:30px;
+width:220px;
+cursor:pointer;
+font-family:'Bangers';
+font-size:22px;
+box-shadow:8px 8px 0px black;
+transition:0.2s;
+}
+
+.domain-card:hover{
+transform:scale(1.05);
+background:#ffeaa7;
+}
+
+/* CHECKBOX PANEL */
+.problem-panel{
+background:white;
+border:5px solid black;
+border-radius:15px;
+padding:25px;
+max-width:650px;
+margin:auto;
+box-shadow:8px 8px 0px black;
+text-align:left;
+}
+
+.problem-panel label{
+display:block;
+margin:10px 0;
+font-size:17px;
+}
+
+/* BUTTON */
+button{
+margin-top:15px;
+padding:12px 20px;
+font-family:'Bangers';
+font-size:18px;
+background:#ff4757;
+color:white;
+border:4px solid black;
+border-radius:10px;
+cursor:pointer;
+box-shadow:4px 4px 0px black;
+}
+
+button:hover{
+background:#e84118;
+}
+
+/* FLIP CARDS */
+.card-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+margin-top:20px;
+}
+
+.card{
+width:90%;
+max-width:280px;
+height:220px;
+perspective:1000px;
+}
+
+.card-inner{
+width:100%;
+height:100%;
+transition:transform 0.6s;
+transform-style:preserve-3d;
+position:relative;
+cursor:pointer;
+}
+
+.card.flipped .card-inner{
+transform:rotateY(180deg);
+}
+
+.card-front,.card-back{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:15px;
+border:4px solid black;
+backface-visibility:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:15px;
+font-weight:bold;
+box-shadow:6px 6px 0px black;
+text-align:center;
+}
+
+.card-front{
+background:linear-gradient(45deg,#ff7675,#fd79a8);
+color:white;
+}
+
+.card-back{
+background:linear-gradient(45deg,#55efc4,#00cec9);
+transform:rotateY(180deg);
+color:black;
+}
+
+/* BACK BUTTON FIX */
+.top-bar{
+position:sticky;
+top:0;
+background:#ffeaa7;
+padding:10px;
+z-index:1000;
+border-bottom:4px solid black;
+}
+
+@media(min-width:768px){
+.card{width:250px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">Prashamana: Nurturing the Caregiver. 💉📚</div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+<h2>Choose Your Domain</h2>
+<div class="domain-container">
+<div class="domain-card" onclick="selectDomain('Academic')">Academic Domain</div>
+<div class="domain-card" onclick="selectDomain('Psychomotor')">Psychomotor Domain</div>
+<div class="domain-card" onclick="selectDomain('Cognitive')">Cognitive Domain</div>
+<div class="domain-card" onclick="selectDomain('Affective')">Affective Domain</div>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+<div class="top-bar">
+<button onclick="goHome()">⬅ Back to Domains</button>
+</div>
+<h2 id="domainTitle"></h2>
+<div class="problem-panel" id="problemList"></div>
+<button onclick="showCards()">Show Solutions</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+<div class="top-bar">
+<button onclick="goBackProblems()">⬅ Back to Problems</button>
+</div>
+<h2>Tap Card to Reveal Nursing Solution 💡</h2>
+<div class="card-container" id="cards"></div>
+</div>
+
+<script>
+
+const data={
+
+Academic:{
+"Exam Anxiety":"Practice deep breathing for 5 minutes. Also visualize yourself confidently completing the exam.",
+"Sleep Disturbance":"Stop using phone 30 minutes before bed. Maintain a fixed sleep schedule daily.",
+"Fear of Failure":"Break syllabus into small goals. Reward yourself after completing each goal.",
+"Result-Related Stress":"Focus on next improvement step. Avoid comparing marks with others.",
+"Performance Pressure":"Take 5–10 minute breaks every hour. Stretch your body during breaks.",
+"Lack of Motivation":"Use 25-minute Pomodoro method. Study with a friend for accountability.",
+"Overwhelmed by Syllabus":"Make a priority topic list. Start with easiest topic to build confidence.",
+"Appetite Changes":"Eat small regular meals. Stay hydrated throughout the day."
+},
+
+Psychomotor:{
+"Restlessness":"Practice meditation or grounding exercise. Try slow 4-4-4 breathing technique.",
+"Pacing":"Sit down for guided relaxation. Play calming instrumental music.",
+"Fatigue":"Take 20–30 minute power nap. Ensure proper hydration.",
+"Social Withdrawal":"Talk to one trusted person daily. Join small study group.",
+"Loss of Appetite / Overeating":"Follow balanced meal timings. Avoid skipping breakfast."
+},
+
+Cognitive:{
+"Poor Concentration":"Study in quiet place. Keep phone on silent mode.",
+"Forgetfulness":"Revise within 24 hours. Use short written summaries.",
+"Negative Thinking":"Practice positive self-talk. Replace 'I can't' with 'I will try'.",
+"Self-Doubt":"Remind yourself of past success. Write one strength daily.",
+"Decision-Making Difficulty":"Set 5–10 minute time limit. List pros and cons quickly."
+},
+
+Affective:{
+"Irritability":"Take 5-minute pause. Do slow breathing exercise.",
+"Mood Swings":"Maintain regular routine. Sleep at same time daily.",
+"Sadness":"Talk to trusted person. Express feelings through journaling.",
+"Emotional Exhaustion":"Take 15–20 minute relaxation break. Go for light walk."
+}
+
+};
+
+let currentDomain="";
+
+function selectDomain(domain){
+currentDomain=domain;
+document.getElementById("page1").classList.remove("active");
+document.getElementById("page2").classList.add("active");
+document.getElementById("domainTitle").innerText=domain+" Domain Problems";
+
+let list="";
+for(let problem in data[domain]){
+list+=`<label><input type="checkbox" value="${problem}"> ${problem}</label>`;
+}
+document.getElementById("problemList").innerHTML=list;
+}
+
+function showCards(){
+const selected=document.querySelectorAll('#problemList input:checked');
+const container=document.getElementById("cards");
+container.innerHTML="";
+
+selected.forEach(item=>{
+let problem=item.value;
+container.innerHTML+=`
+<div class="card" onclick="this.classList.toggle('flipped')">
+<div class="card-inner">
+<div class="card-front">${problem}</div>
+<div class="card-back">${data[currentDomain][problem]}</div>
+</div>
+</div>`;
+});
+
+document.getElementById("page2").classList.remove("active");
+document.getElementById("page3").classList.add("active");
+}
+
+function goHome(){
+document.getElementById("page2").classList.remove("active");
+document.getElementById("page1").classList.add("active");
+}
+
+function goBackProblems(){
+document.getElementById("page3").classList.remove("active");
+document.getElementById("page2").classList.add("active");
+}
+
+</script>
+
+</body>
+</html>

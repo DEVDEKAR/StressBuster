@@ -7,204 +7,182 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
 <style>
-/* ================= GLOBAL ================= */
+/* ================= GLOBAL & RESPONSIVE ================= */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
     font-family: 'Comic Neue', cursive;
-    overflow: hidden;
     background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Persistent Header */
 .app-header {
-    position: absolute;
-    top: 0;
     width: 100%;
     text-align: center;
+    background: #ffffff;
+    padding: 15px 0;
+    border-bottom: 5px solid #2d3436;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     z-index: 1000;
-    padding: 10px 0;
 }
 
 .app-header h1 {
     font-family: 'Bangers';
-    font-size: 40px;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: #2d3436;
     margin: 0;
-    text-shadow: 2px 2px 0px #fff;
+    letter-spacing: 1px;
 }
 
 .page {
     display: none;
-    width: 100vw;
-    height: 100vh;
+    flex: 1;
+    width: 100%;
     position: relative;
-    padding-top: 60px; /* Space for header */
+    overflow-y: auto;
     box-sizing: border-box;
+    padding: 20px;
 }
 
-.active { display: flex; }
+.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-/* ================= PAGE 1 (Nurse Left) ================= */
-#page1 {
-    background: #62c6e2; 
+/* ================= PAGE 1 (Landing) ================= */
+#page1 { background: #62c6e2; }
+
+.p1-container {
+    display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.p1-left {
-    flex: 1.2;
-    background: url('1.jpg') no-repeat bottom center;
+.p1-nurse-img {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    height: 450px;
+    background: url('1.jpg') no-repeat center;
     background-size: contain;
+    border: 8px solid white;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.p1-right {
+.p1-menu {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 15px;
-    padding-right: 50px;
-}
-
-.domain-btn {
-    width: 250px;
-    padding: 15px;
-    background: white;
-    border: 4px solid black;
-    border-radius: 15px;
-    font-family: 'Bangers';
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 6px 6px 0px black;
-    transition: 0.2s;
-}
-
-.domain-btn:hover { transform: scale(1.05); background: #ffeaa7; }
-
-/* ================= PAGE 2 (Medical Border) ================= */
-#page2 {
-    background: white;
-    background-image: url('2.jpg');
-    background-size: cover;
-    background-position: center;
-    flex-direction: column;
+    min-width: 300px;
     align-items: center;
-    justify-content: center;
 }
 
-.problem-container {
-    width: 45%;
-    max-height: 50%;
+/* ================= PAGE 2 (Problem Selection) ================= */
+#page2 {
+    background: url('2.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.problem-box {
+    width: 90%;
+    max-width: 500px;
     background: rgba(255, 255, 255, 0.95);
     padding: 30px;
-    border: 3px solid #62c6e2;
+    border: 5px solid #62c6e2;
     border-radius: 20px;
-    overflow-y: auto;
-    text-align: left;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
-/* ================= PAGE 3 (Nurse Left, Solutions) ================= */
+/* ================= PAGE 3 (Solutions) ================= */
 #page3 {
-    background: #d48e8e;
-    background-image: url('3.jpg');
+    background: url('3.jpg') no-repeat center;
     background-size: cover;
-    background-position: center;
-    display: none;
 }
 
-/* The White Quote Box Layout */
-.quote-box {
-    position: absolute;
-    right: 5%;
-    top: 55%;
-    transform: translateY(-50%);
-    width: 55%;
-    height: 65%;
+.quote-container {
+    width: 95%;
+    max-width: 900px;
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 30px;
-    box-sizing: border-box;
+    border: 5px solid #d48e8e;
+    border-radius: 30px;
+    padding: 40px 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
-    overflow-y: auto;
-    z-index: 2;
+    margin-top: 20px;
 }
 
-/* ================= FLIP CARDS ================= */
-.card {
-    width: 220px;
-    height: 160px;
-    perspective: 1000px;
-}
-
-.card-inner {
-    width: 100%; height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
+/* ================= COMPONENTS ================= */
+.domain-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 18px;
+    background: white;
+    border: 4px solid #2d3436;
+    border-radius: 15px;
+    font-family: 'Bangers';
+    font-size: 1.4rem;
     cursor: pointer;
-    position: relative;
+    box-shadow: 6px 6px 0px #2d3436;
+    transition: all 0.2s ease;
 }
 
+.domain-btn:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0px #2d3436; background: #ffeaa7; }
+
+.card { width: 240px; height: 180px; perspective: 1000px; }
+.card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; position: relative; }
 .card.flipped .card-inner { transform: rotateY(180deg); }
 
 .card-front, .card-back {
     position: absolute;
     width: 100%; height: 100%;
     backface-visibility: hidden;
-    border: 3px solid black;
-    border-radius: 12px;
-    padding: 15px;
+    border: 4px solid #2d3436;
+    border-radius: 15px;
+    padding: 20px;
     box-sizing: border-box;
-    text-align: center;
 }
 
 .card-front { 
-    background: #ff7675; 
-    color: white; 
-    font-family: 'Bangers'; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    background: #ff7675; color: white; font-family: 'Bangers'; 
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    text-shadow: 2px 2px #2d3436;
 }
 
 .card-back { 
-    background: #55efc4; 
-    transform: rotateY(180deg); 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.4;
+    background: #55efc4; transform: rotateY(180deg); 
+    display: flex; flex-direction: column; text-align: left; font-size: 1rem;
 }
 
-.sol-item {
-    margin-bottom: 8px;
-    border-bottom: 1px dashed rgba(0,0,0,0.1);
-    width: 100%;
-    padding-bottom: 4px;
-}
+.sol-list { padding-left: 20px; margin-top: 10px; }
+.sol-list li { margin-bottom: 8px; font-weight: bold; }
 
-/* Navigation Buttons */
 .nav-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     padding: 10px 20px;
     font-family: 'Bangers';
     background: #ff3b3b;
     color: white;
-    border: 3px solid black;
+    border: 3px solid #2d3436;
+    border-radius: 10px;
     cursor: pointer;
-    z-index: 1100;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+/* Responsive adjustments for phones */
+@media (max-width: 768px) {
+    .p1-container { flex-direction: column; }
+    .p1-nurse-img { height: 300px; width: 100%; }
+    .quote-container { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
@@ -215,46 +193,50 @@ body, html {
 </header>
 
 <div id="page1" class="page active">
-    <div class="p1-left"></div>
-    <div class="p1-right">
-        <h2 style="font-family:'Bangers'; font-size: 35px; color: white; text-shadow: 2px 2px black;">CHOOSE DOMAIN</h2>
-        <button class="domain-btn" onclick="selectDomain('Academic')">📚 Academic</button>
-        <button class="domain-btn" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
-        <button class="domain-btn" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
-        <button class="domain-btn" onclick="selectDomain('Affective')">💛 Affective</button>
+    <div class="p1-container">
+        <div class="p1-nurse-img"></div>
+        <div class="p1-menu">
+            <h2 style="font-family:'Bangers'; color: white; text-shadow: 3px 3px #2d3436; font-size: 2rem;">CHOOSE A DOMAIN</h2>
+            <button class="domain-btn" onclick="selectDomain('Academic')">📚 Academic</button>
+            <button class="domain-btn" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
+            <button class="domain-btn" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
+            <button class="domain-btn" onclick="selectDomain('Affective')">💛 Affective</button>
+        </div>
     </div>
 </div>
 
 <div id="page2" class="page">
-    <button class="nav-btn" onclick="goHome()">🏠 Home</button>
-    <h2 id="domainTitle" style="font-family:'Bangers'; font-size: 35px; margin-top: 20px; color: #d63031;"></h2>
-    <div class="problem-container" id="problemList"></div>
-    <button class="domain-btn" style="margin-top: 20px; background:#2ecc71;" onclick="showCards()">VIEW SOLUTIONS</button>
+    <button class="nav-btn" onclick="goHome()">🏠 HOME</button>
+    <div class="problem-box">
+        <h2 id="domainTitle" style="font-family:'Bangers'; color: #d63031; text-align:center;"></h2>
+        <div id="problemList"></div>
+        <button class="domain-btn" style="margin-top: 25px; background:#2ecc71; width:100%; max-width:none;" onclick="showCards()">VIEW SOLUTIONS</button>
+    </div>
 </div>
 
 <div id="page3" class="page">
-    <button class="nav-btn" onclick="goBackProblems()">⬅ Back</button>
-    <div class="quote-box" id="cards"></div>
+    <button class="nav-btn" onclick="goBackProblems()">⬅ BACK</button>
+    <div class="quote-container" id="cards"></div>
 </div>
 
 <script>
 const data = {
     Academic: {
-        "Exam Anxiety": ["Deep breathing for 5 mins.", "Visualize success."],
-        "Sleep Disturbance": ["No phone 30m before bed.", "Stick to a fixed schedule."],
-        "Fear of Failure": ["Set small manageable goals.", "Reward small wins."]
+        "Exam Anxiety": ["Practice focused deep breathing.", "Visualize your success daily."],
+        "Sleep Disturbance": ["Stop screen use 30m before bed.", "Stick to a rigid sleep schedule."],
+        "Fear of Failure": ["Set small, achievable targets.", "Celebrate every small win."]
     },
     Psychomotor: {
-        "Restlessness": ["Engage in meditation.", "Practice 4-4-4 breathing."],
-        "Fatigue": ["Take a 20m power nap.", "Perform light stretching."]
+        "Restlessness": ["Engage in 5-min meditation.", "Try the 4-7-8 breathing technique."],
+        "Fatigue": ["Take a timed 20-min power nap.", "Do light neck and shoulder stretches."]
     },
     Cognitive: {
-        "Concentration": ["Find a quiet environment.", "Keep phone on silent mode."],
-        "Self-Doubt": ["Recall past achievements.", "Write 1 strength daily."]
+        "Concentration": ["Declutter your immediate workspace.", "Use a 'Do Not Disturb' mode."],
+        "Self-Doubt": ["Write down 3 daily strengths.", "Look back at past milestones."]
     },
     Affective: {
-        "Irritability": ["Take a 5 min pause.", "Practice slow breathing."],
-        "Emotional Exhaustion": ["Dedicate 15m to relaxation.", "Take a short outdoor walk."]
+        "Irritability": ["Take a 5-minute 'mental reset'.", "Listen to calming music."],
+        "Emotional Exhaustion": ["Talk to a trusted friend.", "Go for a short walk in nature."]
     }
 };
 
@@ -262,57 +244,53 @@ let currentDomain = "";
 
 function selectDomain(domain) {
     currentDomain = domain;
-    document.getElementById("page1").classList.remove("active");
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById("page2").classList.add("active");
     document.getElementById("domainTitle").innerText = domain + " Challenges";
     
     let list = "";
     for (let prob in data[domain]) {
-        list += `<label style="display:block; font-size:20px; margin-bottom:12px; cursor:pointer;">
-                 <input type="checkbox" value="${prob}" style="transform:scale(1.3); margin-right:10px;"> ${prob}</label>`;
+        list += `<label style="display:flex; align-items:center; font-size:1.2rem; margin-bottom:15px; cursor:pointer; background:white; padding:10px; border-radius:10px; border:2px solid #eee;">
+                 <input type="checkbox" value="${prob}" style="width:20px; height:20px; margin-right:15px;"> ${prob}</label>`;
     }
     document.getElementById("problemList").innerHTML = list;
 }
 
 function showCards() {
     const selected = document.querySelectorAll('#problemList input:checked');
-    if (selected.length === 0) {
-        alert("Please select at least one problem!");
-        return;
-    }
+    if (selected.length === 0) return alert("Please select a challenge!");
 
     const container = document.getElementById("cards");
     container.innerHTML = "";
 
     selected.forEach(item => {
         let p = item.value;
-        let solutions = data[currentDomain][p];
-        let solHtml = solutions.map((s, index) => `<div class="sol-item"><b>${index + 1}.</b> ${s}</div>`).join("");
+        let sols = data[currentDomain][p];
+        let solHtml = sols.map(s => `<li>${s}</li>`).join("");
 
         container.innerHTML += `
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">${p}</div>
                     <div class="card-back">
-                        <strong style="margin-bottom:10px; color:#d63031;">Solutions:</strong>
-                        ${solHtml}
-                        <small style="margin-top:auto; font-style:italic; opacity:0.7;">Click to flip back</small>
+                        <strong style="color:#d63031; border-bottom:2px solid #eee; padding-bottom:5px;">SOLUTIONS:</strong>
+                        <ol class="sol-list">${solHtml}</ol>
                     </div>
                 </div>
             </div>`;
     });
 
-    document.getElementById("page2").classList.remove("active");
-    document.getElementById("page3").style.display = "flex";
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page3").classList.add("active");
 }
 
 function goHome() {
-    document.getElementById("page2").classList.remove("active");
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById("page1").classList.add("active");
 }
 
 function goBackProblems() {
-    document.getElementById("page3").style.display = "none";
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById("page2").classList.add("active");
 }
 </script>

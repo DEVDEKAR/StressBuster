@@ -4,122 +4,113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prashamana: Nurturing the Caregiver</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
 <style>
 /* ================= GLOBAL ================= */
-body {
+body, html {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     font-family: 'Comic Neue', cursive;
-    overflow-x: hidden;
-    background: #f4f9ff;
+    overflow: hidden; /* Keeps it contained like an app */
 }
 
-.hero {
-    background: #ff3b3b;
-    color: yellow;
-    padding: 15px;
-    font-family: 'Bangers';
-    font-size: 28px;
-    letter-spacing: 2px;
-    text-shadow: 3px 3px black;
-    border-bottom: 5px solid black;
-    text-align: center;
+.page {
+    display: none;
+    width: 100vw;
+    height: 100vh;
     position: relative;
-    z-index: 10;
 }
 
-/* ================= PAGE 1: SPLIT SCREEN ================= */
+.active { display: flex; }
+
+/* ================= PAGE 1 (Nurse Left, Domains Right) ================= */
 #page1 {
-    display: flex;
-    height: calc(100vh - 70px);
-    background: linear-gradient(to right, #62c6e2, #94e0f1); /* Matching image 1 sky blue */
+    background: #62c6e2; /* Matches the sky blue in image 1 */
+    flex-direction: row;
 }
 
-.nurse-left {
-    flex: 1;
-    background: url('https://i.ibb.co/Vp8pY3t/nurse1.jpg') no-repeat center center; /* Placeholder for image_bd2370.jpg */
-    background-size: cover;
-    border-right: 4px solid black;
+.p1-left {
+    flex: 1.2;
+    background: url('image_bd2370.jpg') no-repeat bottom center;
+    background-size: contain;
 }
 
-/* Real-world adjustment: Since I can't access local file paths, replace the URL above with your image_bd2370.jpg */
-
-.domains-right {
+.p1-right {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    gap: 15px;
+    gap: 20px;
+    padding-right: 50px;
 }
 
-.domain-card {
+.domain-btn {
+    width: 250px;
+    padding: 20px;
     background: white;
     border: 4px solid black;
     border-radius: 15px;
-    padding: 20px;
-    width: 80%;
-    max-width: 300px;
-    cursor: pointer;
     font-family: 'Bangers';
-    font-size: 24px;
+    font-size: 22px;
+    cursor: pointer;
     box-shadow: 6px 6px 0px black;
-    transition: 0.3s;
-    text-align: center;
+    transition: 0.2s;
 }
 
-.domain-card:hover {
-    transform: translateX(-10px);
-    background: #ffeaa7;
-}
+.domain-btn:hover { transform: scale(1.05); background: #ffeaa7; }
 
-/* ================= PAGE 2: BORDER BG ================= */
+/* ================= PAGE 2 (Medical Border Frame) ================= */
 #page2 {
-    display: none;
-    min-height: 100vh;
-    background: url('https://i.ibb.co/Lkv7P8L/border.png') no-repeat center center; /* Placeholder for image_bccfcc.png */
+    background: white;
+    background-image: url('image_bccfcc.png');
     background-size: 100% 100%;
-    padding: 60px;
-    box-sizing: border-box;
+    background-repeat: no-repeat;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.problem-panel {
+.problem-container {
+    width: 50%;
+    max-height: 60%;
     background: rgba(255, 255, 255, 0.9);
-    border: 3px dashed #ff4757;
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 20px auto;
+    padding: 30px;
+    border-radius: 20px;
+    overflow-y: auto;
+    text-align: left;
 }
 
-/* ================= PAGE 3: QUOTE STYLE ================= */
+/* ================= PAGE 3 (Nurse Left, Solutions in Quote) ================= */
 #page3 {
+    background: #d48e8e; /* Matches pink bg of image 3 */
     display: none;
-    height: 100vh;
-    background: #d48e8e; /* Matching image_bccd00.jpg pinkish bg */
-    position: relative;
-    overflow: hidden;
 }
 
-.nurse-overlay {
+.p3-nurse {
     position: absolute;
-    left: 50px;
+    left: 0;
     bottom: 0;
-    height: 80%;
-    z-index: 2;
+    height: 90%;
+    width: 40%;
+    background: url('image_bccd00.jpg') no-repeat left bottom;
+    background-size: contain;
+    z-index: 1;
 }
 
-.quote-container {
+/* The White Quote Box Layout */
+.quote-box {
     position: absolute;
-    right: 5%;
-    top: 15%;
-    width: 60%;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
     height: 70%;
     background: white;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
     display: flex;
@@ -127,30 +118,18 @@ body {
     gap: 15px;
     justify-content: center;
     overflow-y: auto;
-    border: 8px solid white;
+    z-index: 2;
 }
-
-/* Quote marks decoration */
-.quote-container::before, .quote-container::after {
-    content: '"';
-    font-family: 'Bangers';
-    font-size: 100px;
-    color: #ff4757;
-    position: absolute;
-}
-.quote-container::before { top: -20px; left: 10px; }
-.quote-container::after { bottom: -60px; right: 10px; }
 
 /* ================= FLIP CARDS ================= */
 .card {
     width: 200px;
-    height: 150px;
+    height: 140px;
     perspective: 1000px;
 }
 
 .card-inner {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     transition: transform 0.6s;
     transform-style: preserve-3d;
     cursor: pointer;
@@ -161,63 +140,59 @@ body {
 
 .card-front, .card-back {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     backface-visibility: hidden;
     border: 3px solid black;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
     text-align: center;
-    font-weight: bold;
 }
 
-.card-front { background: #ff7675; color: white; }
-.card-back { background: #55efc4; transform: rotateY(180deg); font-size: 12px; }
+.card-front { background: #ff7675; color: white; font-family: 'Bangers'; }
+.card-back { background: #55efc4; transform: rotateY(180deg); font-size: 13px; }
 
-button {
+/* Buttons */
+.nav-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
     font-family: 'Bangers';
-    background: #ff4757;
+    background: #ff3b3b;
     color: white;
     border: 3px solid black;
-    padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 4px 4px 0px black;
+    z-index: 100;
 }
-
-.active { display: flex !important; }
 </style>
 </head>
 <body>
 
-<div class="hero">Prashamana: Nurturing the Caregiver 💉</div>
-
 <div id="page1" class="page active">
-    <div class="nurse-left"></div>
-    <div class="domains-right">
-        <h2 style="font-family: 'Bangers'; font-size: 40px; color: #2d3436;">SELECT DOMAIN</h2>
-        <div class="domain-card" onclick="selectDomain('Academic')">📚 Academic</div>
-        <div class="domain-card" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</div>
-        <div class="domain-card" onclick="selectDomain('Cognitive')">🧠 Cognitive</div>
-        <div class="domain-card" onclick="selectDomain('Affective')">💛 Affective</div>
+    <div class="p1-left"></div>
+    <div class="p1-right">
+        <h1 style="font-family:'Bangers'; font-size: 45px; text-shadow: 2px 2px white;">CHOOSE DOMAIN</h1>
+        <button class="domain-btn" onclick="selectDomain('Academic')">📚 Academic</button>
+        <button class="domain-btn" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</button>
+        <button class="domain-btn" onclick="selectDomain('Cognitive')">🧠 Cognitive</button>
+        <button class="domain-btn" onclick="selectDomain('Affective')">💛 Affective</button>
     </div>
 </div>
 
 <div id="page2" class="page">
-    <div style="text-align: center;">
-        <button onclick="goHome()">⬅ Back</button>
-        <h2 id="domainTitle" style="color: #d63031;"></h2>
-        <div class="problem-panel" id="problemList"></div>
-        <button onclick="showCards()" style="background: #2ecc71;">💥 Reveal Solutions</button>
-    </div>
+    <button class="nav-btn" onclick="goHome()">Back</button>
+    <h2 id="domainTitle" style="font-family:'Bangers'; font-size: 35px; margin-top: -50px;"></h2>
+    <div class="problem-container" id="problemList"></div>
+    <button class="domain-btn" style="margin-top: 20px; background:#2ecc71;" onclick="showCards()">VIEW SOLUTIONS</button>
 </div>
 
 <div id="page3" class="page">
-    <img src="https://i.ibb.co/Vp8pY3t/nurse1.jpg" class="nurse-overlay" alt="Nurse"> <button onclick="goBackProblems()" style="position: absolute; top: 20px; left: 20px; z-index: 100;">⬅ Back</button>
-    
-    <div class="quote-container" id="cards">
+    <button class="nav-btn" onclick="goBackProblems()">Back</button>
+    <div class="p3-nurse"></div>
+    <div class="quote-box" id="cards">
         </div>
 </div>
 
@@ -226,31 +201,18 @@ const data = {
     Academic: {
         "Exam Anxiety": ["Deep breathing for 5 mins.", "Visualize success."],
         "Sleep Disturbance": ["No phone 30m before bed.", "Fixed schedule."],
-        "Fear of Failure": ["Small manageable goals.", "Reward yourself."],
-        "Result Stress": ["Focus on next step.", "No comparisons."],
-        "Performance Pressure": ["10m break every hour.", "Stay hydrated."],
-        "Motivation": ["Pomodoro technique.", "Study buddy."],
-        "Syllabus Load": ["Priority list.", "Start with easy topics."],
-        "Appetite": ["Small regular meals.", "Drink water."]
+        "Fear of Failure": ["Small manageable goals.", "Reward yourself."]
     },
     Psychomotor: {
         "Restlessness": ["Meditation exercise.", "4-4-4 breathing."],
-        "Pacing": ["Guided relaxation.", "Calming music."],
-        "Fatigue": ["20m power nap.", "Light stretching."],
-        "Social Withdrawal": ["Talk to 1 person daily.", "Join a study group."],
-        "Eating Habits": ["Balanced meal timings.", "Don't skip breakfast."]
+        "Fatigue": ["20m power nap.", "Light stretching."]
     },
     Cognitive: {
         "Concentration": ["Quiet environment.", "Phone on silent."],
-        "Forgetfulness": ["Revision in 24 hrs.", "Summary notes."],
-        "Negative Thinking": ["Positive self-talk.", "Replace negatives."],
-        "Self-Doubt": ["Recall past success.", "Write 1 strength daily."],
-        "Decisions": ["Set 5m time limit.", "Pros & Cons list."]
+        "Self-Doubt": ["Recall past success.", "Write 1 strength daily."]
     },
     Affective: {
         "Irritability": ["5 min pause.", "Slow breathing."],
-        "Mood Swings": ["Regular routine.", "Avoid caffeine."],
-        "Sadness": ["Talk to a friend.", "Journal feelings."],
         "Emotional Exhaustion": ["15m relaxation.", "Outdoor walk."]
     }
 };
@@ -259,13 +221,14 @@ let currentDomain = "";
 
 function selectDomain(domain) {
     currentDomain = domain;
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page1").classList.remove("active");
     document.getElementById("page2").classList.add("active");
-    document.getElementById("domainTitle").innerText = domain + " Challenges";
+    document.getElementById("domainTitle").innerText = domain + " Problems";
     
     let list = "";
-    for (let problem in data[domain]) {
-        list += `<label style="display:block; margin:10px; font-size:20px;"><input type="checkbox" value="${problem}"> ${problem}</label>`;
+    for (let prob in data[domain]) {
+        list += `<label style="display:block; font-size:22px; margin-bottom:10px;">
+                 <input type="checkbox" value="${prob}" style="transform:scale(1.5); margin-right:10px;"> ${prob}</label>`;
     }
     document.getElementById("problemList").innerHTML = list;
 }
@@ -276,30 +239,28 @@ function showCards() {
     container.innerHTML = "";
 
     selected.forEach(item => {
-        let prob = item.value;
-        let sol = data[currentDomain][prob];
+        let p = item.value;
+        let s = data[currentDomain][p];
         container.innerHTML += `
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
-                    <div class="card-front">${prob}</div>
-                    <div class="card-back">
-                        <div><b>1:</b> ${sol[0]}<br><br><b>2:</b> ${sol[1]}</div>
-                    </div>
+                    <div class="card-front">${p}</div>
+                    <div class="card-back"><b>1:</b> ${s[0]}<br><br><b>2:</b> ${s[1]}</div>
                 </div>
             </div>`;
     });
 
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.remove("active");
     document.getElementById("page3").classList.add("active");
+    document.getElementById("page3").style.display = "flex";
 }
 
 function goHome() {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById("page1").classList.add("active");
+    location.reload(); // Simplest way to reset
 }
 
 function goBackProblems() {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page3").style.display = "none";
     document.getElementById("page2").classList.add("active");
 }
 </script>

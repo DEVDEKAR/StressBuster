@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,411 +8,300 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
 <style>
-
-/* ================= BODY ================= */
-body{
-margin:0;
-font-family:'Comic Neue',cursive;
-text-align:center;
-overflow-x:hidden;
-background:#f4f9ff;
-position:relative;
+/* ================= GLOBAL ================= */
+body {
+    margin: 0;
+    font-family: 'Comic Neue', cursive;
+    overflow-x: hidden;
+    background: #f4f9ff;
 }
 
-/* Comic Halftone Layer */
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-background-image:radial-gradient(#cfe2ff 1px, transparent 1px);
-background-size:20px 20px;
-opacity:0.4;
-z-index:-2;
+.hero {
+    background: #ff3b3b;
+    color: yellow;
+    padding: 15px;
+    font-family: 'Bangers';
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px black;
+    border-bottom: 5px solid black;
+    text-align: center;
+    position: relative;
+    z-index: 10;
 }
 
-/* Medical Decorative Icons */
-body::after{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-background-image:
-url("https://cdn-icons-png.flaticon.com/512/3209/3209265.png"),
-url("https://cdn-icons-png.flaticon.com/512/2966/2966485.png"),
-url("https://cdn-icons-png.flaticon.com/512/4320/4320371.png");
-background-repeat:no-repeat,no-repeat,no-repeat;
-background-position:left 30px top 120px,
-right 40px bottom 150px,
-left 40px bottom 80px;
-background-size:110px,100px,90px;
-opacity:0.08;
-z-index:-1;
-pointer-events:none;
+/* ================= PAGE 1: SPLIT SCREEN ================= */
+#page1 {
+    display: flex;
+    height: calc(100vh - 70px);
+    background: linear-gradient(to right, #62c6e2, #94e0f1); /* Matching image 1 sky blue */
 }
 
-/* ================= HERO ================= */
-.hero{
-background:#ff3b3b;
-color:yellow;
-padding:22px;
-font-family:'Bangers';
-font-size:30px;
-letter-spacing:2px;
-text-shadow:3px 3px black;
-border-bottom:5px solid black;
+.nurse-left {
+    flex: 1;
+    background: url('https://i.ibb.co/Vp8pY3t/nurse1.jpg') no-repeat center center; /* Placeholder for image_bd2370.jpg */
+    background-size: cover;
+    border-right: 4px solid black;
 }
 
-/* ================= PAGES ================= */
-.page{
-display:none;
-padding:30px 20px;
-min-height:100vh;
+/* Real-world adjustment: Since I can't access local file paths, replace the URL above with your image_bd2370.jpg */
+
+.domains-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
 }
 
-.active{
-display:block;
+.domain-card {
+    background: white;
+    border: 4px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    cursor: pointer;
+    font-family: 'Bangers';
+    font-size: 24px;
+    box-shadow: 6px 6px 0px black;
+    transition: 0.3s;
+    text-align: center;
 }
 
-/* ================= DOMAIN CARDS ================= */
-.domain-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
-margin-top:30px;
+.domain-card:hover {
+    transform: translateX(-10px);
+    background: #ffeaa7;
 }
 
-.domain-card{
-background:white;
-border:4px solid black;
-border-radius:20px;
-padding:30px;
-width:230px;
-cursor:pointer;
-font-family:'Bangers';
-font-size:22px;
-box-shadow:6px 6px 0px black;
-transition:0.3s;
+/* ================= PAGE 2: BORDER BG ================= */
+#page2 {
+    display: none;
+    min-height: 100vh;
+    background: url('https://i.ibb.co/Lkv7P8L/border.png') no-repeat center center; /* Placeholder for image_bccfcc.png */
+    background-size: 100% 100%;
+    padding: 60px;
+    box-sizing: border-box;
 }
 
-.domain-card:hover{
-transform:scale(1.07) rotate(-2deg);
-background:#ffeaa7;
+.problem-panel {
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px dashed #ff4757;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
 }
 
-/* ================= PROBLEM PANEL ================= */
-.problem-panel{
-background:white;
-border:4px solid black;
-border-radius:20px;
-padding:25px;
-max-width:700px;
-margin:20px auto;
-box-shadow:6px 6px 0px black;
-text-align:left;
+/* ================= PAGE 3: QUOTE STYLE ================= */
+#page3 {
+    display: none;
+    height: 100vh;
+    background: #d48e8e; /* Matching image_bccd00.jpg pinkish bg */
+    position: relative;
+    overflow: hidden;
 }
 
-.problem-panel label{
-display:block;
-margin:12px 0;
-font-size:18px;
+.nurse-overlay {
+    position: absolute;
+    left: 50px;
+    bottom: 0;
+    height: 80%;
+    z-index: 2;
 }
 
-/* ================= BUTTON ================= */
-button{
-margin-top:15px;
-padding:12px 22px;
-font-family:'Bangers';
-font-size:18px;
-background:#ff4757;
-color:white;
-border:4px solid black;
-border-radius:12px;
-cursor:pointer;
-box-shadow:4px 4px 0px black;
-transition:0.2s;
+.quote-container {
+    position: absolute;
+    right: 5%;
+    top: 15%;
+    width: 60%;
+    height: 70%;
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    overflow-y: auto;
+    border: 8px solid white;
 }
 
-button:hover{
-background:#e84118;
-transform:scale(1.05);
+/* Quote marks decoration */
+.quote-container::before, .quote-container::after {
+    content: '"';
+    font-family: 'Bangers';
+    font-size: 100px;
+    color: #ff4757;
+    position: absolute;
+}
+.quote-container::before { top: -20px; left: 10px; }
+.quote-container::after { bottom: -60px; right: 10px; }
+
+/* ================= FLIP CARDS ================= */
+.card {
+    width: 200px;
+    height: 150px;
+    perspective: 1000px;
 }
 
-/* ================= TOP BAR ================= */
-.top-bar{
-position:sticky;
-top:0;
-background:#fff;
-padding:12px;
-z-index:9999;
-border-bottom:4px solid black;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
 }
 
-/* ================= CARDS ================= */
-.card-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
-margin-top:30px;
+.card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 3px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 
-.card{
-width:90%;
-max-width:300px;
-height:230px;
-perspective:1000px;
+.card-front { background: #ff7675; color: white; }
+.card-back { background: #55efc4; transform: rotateY(180deg); font-size: 12px; }
+
+button {
+    font-family: 'Bangers';
+    background: #ff4757;
+    color: white;
+    border: 3px solid black;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px black;
 }
 
-.card-inner{
-width:100%;
-height:100%;
-transition:transform 0.7s;
-transform-style:preserve-3d;
-position:relative;
-cursor:pointer;
-}
-
-.card.flipped .card-inner{
-transform:rotateY(180deg);
-}
-
-.card-front,.card-back{
-position:absolute;
-width:100%;
-height:100%;
-border-radius:20px;
-border:4px solid black;
-backface-visibility:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:15px;
-font-weight:bold;
-box-shadow:6px 6px 0px black;
-text-align:center;
-}
-
-.card-front{
-background:linear-gradient(45deg,#ff7675,#fd79a8);
-color:white;
-font-size:18px;
-}
-
-.card-back{
-background:linear-gradient(45deg,#55efc4,#00cec9);
-transform:rotateY(180deg);
-color:black;
-font-size:15px;
-}
-
-@media(min-width:768px){
-.card{width:260px;}
-}
-
+.active { display: flex !important; }
 </style>
 </head>
-
 <body>
 
-<div class="hero"> Prashamana: Nurturing the Caregiver💉📚</div>
+<div class="hero">Prashamana: Nurturing the Caregiver 💉</div>
 
-<!-- PAGE 1 -->
 <div id="page1" class="page active">
-<h2>Choose Your Domain</h2>
-<div class="domain-container">
-<div class="domain-card" onclick="selectDomain('Academic')">📚 Academic</div>
-<div class="domain-card" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</div>
-<div class="domain-card" onclick="selectDomain('Cognitive')">🧠 Cognitive</div>
-<div class="domain-card" onclick="selectDomain('Affective')">💛 Affective</div>
-</div>
+    <div class="nurse-left"></div>
+    <div class="domains-right">
+        <h2 style="font-family: 'Bangers'; font-size: 40px; color: #2d3436;">SELECT DOMAIN</h2>
+        <div class="domain-card" onclick="selectDomain('Academic')">📚 Academic</div>
+        <div class="domain-card" onclick="selectDomain('Psychomotor')">🏃 Psychomotor</div>
+        <div class="domain-card" onclick="selectDomain('Cognitive')">🧠 Cognitive</div>
+        <div class="domain-card" onclick="selectDomain('Affective')">💛 Affective</div>
+    </div>
 </div>
 
-<!-- PAGE 2 -->
 <div id="page2" class="page">
-<div class="top-bar">
-<button onclick="goHome()">⬅ Back to Domains</button>
-</div>
-<h2 id="domainTitle"></h2>
-<div class="problem-panel" id="problemList"></div>
-<button onclick="showCards()">💥 Show Solutions</button>
+    <div style="text-align: center;">
+        <button onclick="goHome()">⬅ Back</button>
+        <h2 id="domainTitle" style="color: #d63031;"></h2>
+        <div class="problem-panel" id="problemList"></div>
+        <button onclick="showCards()" style="background: #2ecc71;">💥 Reveal Solutions</button>
+    </div>
 </div>
 
-<!-- PAGE 3 -->
 <div id="page3" class="page">
-<div class="top-bar">
-<button onclick="goBackProblems()">⬅ Back to Problems</button>
-</div>
-<h2>Flip Card to Reveal Solutions 💡</h2>
-<div class="card-container" id="cards"></div>
+    <img src="https://i.ibb.co/Vp8pY3t/nurse1.jpg" class="nurse-overlay" alt="Nurse"> <button onclick="goBackProblems()" style="position: absolute; top: 20px; left: 20px; z-index: 100;">⬅ Back</button>
+    
+    <div class="quote-container" id="cards">
+        </div>
 </div>
 
 <script>
-
-const data = /* KEEP YOUR SAME DATA OBJECT HERE (NO CHANGE NEEDED) */;
-const data={
-
-Academic:{
-"Exam Anxiety":[
-"Practice deep breathing for 5 minutes before studying or entering exam hall.",
-"Visualize yourself confidently completing the exam successfully."
-],
-"Sleep Disturbance":[
-"Stop using phone 30 minutes before bedtime.",
-"Maintain a fixed sleep schedule daily."
-],
-"Fear of Failure":[
-"Break syllabus into small manageable study goals.",
-"Reward yourself after completing each small goal."
-],
-"Result-Related Stress":[
-"Focus on your next improvement step instead of marks.",
-"Avoid comparing your results with others."
-],
-"Performance Pressure":[
-"Take 5–10 minute break after every 1 hour of study.",
-"Stretch your body or hydrate during breaks."
-],
-"Lack of Motivation":[
-"Use the 25-minute Pomodoro study method.",
-"Study with a friend for accountability."
-],
-"Overwhelmed by Syllabus":[
-"Make a priority list of important topics first.",
-"Start with easier topics to build confidence."
-],
-"Appetite Changes":[
-"Eat small, regular meals even if not very hungry.",
-"Drink enough water throughout the day."
-]
-},
-
-Psychomotor:{
-"Restlessness":[
-"Practice meditation or grounding exercise.",
-"Try 4-4-4 slow breathing technique."
-],
-"Pacing":[
-"Sit down and do short guided relaxation.",
-"Play calming instrumental music."
-],
-"Fatigue":[
-"Take a 20–30 minute power nap.",
-"Ensure proper hydration and light stretching."
-],
-"Social Withdrawal":[
-"Talk to at least one trusted person daily.",
-"Join a small study group for interaction."
-],
-"Loss of Appetite / Overeating":[
-"Follow regular balanced meal timings.",
-"Avoid skipping breakfast."
-]
-},
-
-Cognitive:{
-"Poor Concentration":[
-"Study in a quiet place and remove distractions.",
-"Keep phone on silent or in another room."
-],
-"Forgetfulness":[
-"Do quick revision within 24 hours.",
-"Make short summary notes."
-],
-"Negative Thinking":[
-"Practice positive self-talk.",
-"Replace negative thoughts with realistic ones."
-],
-"Self-Doubt":[
-"Remind yourself of one past success.",
-"Write down one personal strength daily."
-],
-"Decision-Making Difficulty":[
-"Set a 5–10 minute time limit to decide.",
-"List quick pros and cons."
-]
-},
-
-Affective:{
-"Irritability":[
-"Take a 5-minute pause from task.",
-"Do slow breathing before responding."
-],
-"Mood Swings":[
-"Maintain regular routine (sleep, meals, study).",
-"Avoid excessive caffeine."
-],
-"Sadness":[
-"Talk to one trusted person.",
-"Express feelings through writing or journaling."
-],
-"Emotional Exhaustion":[
-"Take a 15–20 minute relaxation break.",
-"Go for a light walk outdoors."
-]
-}
-
+const data = {
+    Academic: {
+        "Exam Anxiety": ["Deep breathing for 5 mins.", "Visualize success."],
+        "Sleep Disturbance": ["No phone 30m before bed.", "Fixed schedule."],
+        "Fear of Failure": ["Small manageable goals.", "Reward yourself."],
+        "Result Stress": ["Focus on next step.", "No comparisons."],
+        "Performance Pressure": ["10m break every hour.", "Stay hydrated."],
+        "Motivation": ["Pomodoro technique.", "Study buddy."],
+        "Syllabus Load": ["Priority list.", "Start with easy topics."],
+        "Appetite": ["Small regular meals.", "Drink water."]
+    },
+    Psychomotor: {
+        "Restlessness": ["Meditation exercise.", "4-4-4 breathing."],
+        "Pacing": ["Guided relaxation.", "Calming music."],
+        "Fatigue": ["20m power nap.", "Light stretching."],
+        "Social Withdrawal": ["Talk to 1 person daily.", "Join a study group."],
+        "Eating Habits": ["Balanced meal timings.", "Don't skip breakfast."]
+    },
+    Cognitive: {
+        "Concentration": ["Quiet environment.", "Phone on silent."],
+        "Forgetfulness": ["Revision in 24 hrs.", "Summary notes."],
+        "Negative Thinking": ["Positive self-talk.", "Replace negatives."],
+        "Self-Doubt": ["Recall past success.", "Write 1 strength daily."],
+        "Decisions": ["Set 5m time limit.", "Pros & Cons list."]
+    },
+    Affective: {
+        "Irritability": ["5 min pause.", "Slow breathing."],
+        "Mood Swings": ["Regular routine.", "Avoid caffeine."],
+        "Sadness": ["Talk to a friend.", "Journal feelings."],
+        "Emotional Exhaustion": ["15m relaxation.", "Outdoor walk."]
+    }
 };
 
-let currentDomain="";
+let currentDomain = "";
 
-function selectDomain(domain){
-currentDomain=domain;
-document.getElementById("page1").classList.remove("active");
-document.getElementById("page2").classList.add("active");
-document.getElementById("domainTitle").innerText=domain+" Domain Problems";
-
-let list="";
-for(let problem in data[domain]){
-list+=`<label><input type="checkbox" value="${problem}"> ${problem}</label>`;
-}
-document.getElementById("problemList").innerHTML=list;
-}
-
-function showCards(){
-const selected=document.querySelectorAll('#problemList input:checked');
-const container=document.getElementById("cards");
-container.innerHTML="";
-
-selected.forEach(item=>{
-let problem=item.value;
-let solutions=data[currentDomain][problem];
-
-container.innerHTML+=`
-<div class="card" onclick="this.classList.toggle('flipped')">
-<div class="card-inner">
-<div class="card-front">${problem}</div>
-<div class="card-back">
-<div>
-<strong>Solution 1:</strong><br>${solutions[0]}<br><br>
-<strong>Solution 2:</strong><br>${solutions[1]}
-</div>
-</div>
-</div>
-</div>`;
-});
-
-document.getElementById("page2").classList.remove("active");
-document.getElementById("page3").classList.add("active");
+function selectDomain(domain) {
+    currentDomain = domain;
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+    document.getElementById("domainTitle").innerText = domain + " Challenges";
+    
+    let list = "";
+    for (let problem in data[domain]) {
+        list += `<label style="display:block; margin:10px; font-size:20px;"><input type="checkbox" value="${problem}"> ${problem}</label>`;
+    }
+    document.getElementById("problemList").innerHTML = list;
 }
 
-function goHome(){
-document.getElementById("page2").classList.remove("active");
-document.getElementById("page1").classList.add("active");
+function showCards() {
+    const selected = document.querySelectorAll('#problemList input:checked');
+    const container = document.getElementById("cards");
+    container.innerHTML = "";
+
+    selected.forEach(item => {
+        let prob = item.value;
+        let sol = data[currentDomain][prob];
+        container.innerHTML += `
+            <div class="card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">${prob}</div>
+                    <div class="card-back">
+                        <div><b>1:</b> ${sol[0]}<br><br><b>2:</b> ${sol[1]}</div>
+                    </div>
+                </div>
+            </div>`;
+    });
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page3").classList.add("active");
 }
 
-function goBackProblems(){
-document.getElementById("page3").classList.remove("active");
-document.getElementById("page2").classList.add("active");
+function goHome() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page1").classList.add("active");
 }
 
+function goBackProblems() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById("page2").classList.add("active");
+}
 </script>
-
 </body>
 </html>

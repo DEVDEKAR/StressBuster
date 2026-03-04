@@ -9,99 +9,73 @@
 
 <style>
 
-/* ================= NOTEBOOK BASE ================= */
+/* ================= BODY ================= */
 body{
 margin:0;
 font-family:'Comic Neue',cursive;
 text-align:center;
 overflow-x:hidden;
-background:#fdf6e3;
+background:#f4f9ff;
 position:relative;
 }
 
-/* Spiral Notebook Top Border */
+/* Comic Halftone Layer */
 body::before{
 content:"";
 position:fixed;
+width:100%;
+height:100%;
 top:0;
 left:0;
+background-image:radial-gradient(#cfe2ff 1px, transparent 1px);
+background-size:20px 20px;
+opacity:0.4;
+z-index:-2;
+}
+
+/* Medical Decorative Icons */
+body::after{
+content:"";
+position:fixed;
 width:100%;
-height:70px;
-background:url("https://i.imgur.com/3QZ7Z6P.png") repeat-x;
-background-size:contain;
-z-index:5;
-pointer-events:none;
-}
-
-/* ================= PAGE BASE ================= */
-.page{
-min-height:100vh;
-padding:100px 20px 40px 20px;
-display:none;
-
-/* Paper lines + comic dots */
+height:100%;
+top:0;
+left:0;
 background-image:
-linear-gradient(to bottom, transparent 95%, #dcdcdc 95%),
-url("https://i.imgur.com/8Km9tLL.png");
-
-background-size:100% 35px, 250px;
-background-repeat:repeat, repeat;
-}
-
-.active{
-display:block;
-}
-
-/* ================= PAGE 1 - DOMAIN ================= */
-#page1{
-background-color:#fff9c4;
-}
-
-/* ================= PAGE 2 - PROBLEMS ================= */
-#page2{
-background-color:#ffe0e0;
-}
-
-/* ================= PAGE 3 - SOLUTIONS ================= */
-#page3{
-background-color:#e3f2fd;
+url("https://cdn-icons-png.flaticon.com/512/3209/3209265.png"),
+url("https://cdn-icons-png.flaticon.com/512/2966/2966485.png"),
+url("https://cdn-icons-png.flaticon.com/512/4320/4320371.png");
+background-repeat:no-repeat,no-repeat,no-repeat;
+background-position:left 30px top 120px,
+right 40px bottom 150px,
+left 40px bottom 80px;
+background-size:110px,100px,90px;
+opacity:0.08;
+z-index:-1;
+pointer-events:none;
 }
 
 /* ================= HERO ================= */
 .hero{
-background:#ff5252;
+background:#ff3b3b;
 color:yellow;
-padding:25px;
+padding:22px;
 font-family:'Bangers';
 font-size:30px;
 letter-spacing:2px;
 text-shadow:3px 3px black;
 border-bottom:5px solid black;
-position:relative;
-z-index:6;
 }
 
-/* ================= TAPE EFFECT HEADINGS ================= */
-h2{
-display:inline-block;
-background:#fff;
-padding:10px 25px;
-border:3px solid black;
-border-radius:10px;
-box-shadow:4px 4px 0px black;
-position:relative;
+/* ================= PAGES ================= */
+.page{
+display:none;
+padding:30px 20px;
+min-height:100vh;
 }
 
-h2::before{
-content:"";
-position:absolute;
-top:-15px;
-left:40%;
-width:80px;
-height:20px;
-background:#f8bbd0;
-transform:rotate(-5deg);
-border-radius:4px;
+.active{
+display:block;
 }
 
 /* ================= DOMAIN CARDS ================= */
@@ -172,15 +146,15 @@ transform:scale(1.05);
 /* ================= TOP BAR ================= */
 .top-bar{
 position:sticky;
-top:70px;
-background:#ffffff;
-padding:10px;
-z-index:10;
+top:0;
+background:#fff;
+padding:12px;
+z-index:9999;
 border-bottom:4px solid black;
-box-shadow:0 4px 8px rgba(0,0,0,0.1);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* ================= FLIP CARDS ================= */
+/* ================= CARDS ================= */
 .card-container{
 display:flex;
 flex-wrap:wrap;
@@ -247,7 +221,7 @@ font-size:15px;
 
 <body>
 
-<div class="hero">SUPER NURSE STRESS COMIC HELPER 💉📚</div>
+<div class="hero"> Prashamana: Nurturing the Caregiver💉📚</div>
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
@@ -280,6 +254,8 @@ font-size:15px;
 </div>
 
 <script>
+
+const data = /* KEEP YOUR SAME DATA OBJECT HERE (NO CHANGE NEEDED) */;
 const data={
 
 Academic:{
